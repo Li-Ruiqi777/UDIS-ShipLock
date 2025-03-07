@@ -12,79 +12,6 @@ from Conv import Conv
 from block import C3k2, SPPF, C2PSA
 from afpn import AFPN_P345
 
-class FPN(nn.Module):
-    def __init__(self, width=0.25, depth=0.5):
-        super().__init__()       
-        self.upsample = nn.Upsample(scale_factor=2, mode='nearest')
-
-        # 输入1/16
-        self.fusion2 = C3k2(int((1024 + 512) * width), int(1024 * width), int(2 * depth), False)
-
-        # 输入1/8
-        self.fusion1 = C3k2(int((1024 + 512) * width), int(512 * width), int(2 * depth), False)
-    
-    def forward(self, x1, x2, x3):
-        # 1/16
-        p2 = torch.cat([x2, self.upsample(x3)], dim=1)
-        p2 = self.fusion2(p2)
-
-        # 1/8
-        p1 = torch.cat([x1, self.upsample(p2)], dim=1)
-        p1 = self.fusion1(p1)
-        
-        return [p1, p2]
-
-class FeatureExtractor_YOLOFPN(nn.Module):
-    def __init__(self):
-        super().__init__()
-        width = 0.25
-        depth = 0.5
-
-        self.stage1 = nn.Sequential(
-            Conv(3, int(64 * width), k=3, s=2), # 1/2
-            Conv(int(64 * width), int(128 * width), k=3, s=2), # 1/4
-            C3k2(int(128 * width), int(256 * width), int(2 * depth), False, 0.25),
-            Conv(int(256 * width), int(256 * width), k=3, s=2), # 1/8
-            C3k2(int(256 * width), int(512 * width), int(2 * depth), False, 0.25),
-        )
-
-        self.stage2 = nn.Sequential(
-            Conv(int(512 * width), int(512 * width), k=3, s=2), # 1/16
-            C3k2(int(512 * width), int(512 * width), int(2 * depth), True),
-        )
-
-        self.stage3 = nn.Sequential(
-            Conv(int(512 * width), int(1024 * width), k=3, s=2), # 1/32
-            C3k2(int(1024 * width), int(1024 * width), int(2 * depth), True),
-            SPPF(int(1024 * width), int(1024 * width), 5),
-            C2PSA(int(1024 * width), int(1024 * width), int(2 * depth), 0.25)
-        )
-
-        self.fpn = FPN(width, depth)
-
-        self._initialize_weights()
-
-    def _initialize_weights(self):
-        for m in self.modules():
-            if isinstance(m, nn.Conv2d):
-                nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
-                if m.bias is not None:
-                    nn.init.constant_(m.bias, 0)
-            elif isinstance(m, nn.Linear):
-                nn.init.xavier_normal_(m.weight)
-                if m.bias is not None:
-                    nn.init.constant_(m.bias, 0)
-            elif isinstance(m, nn.BatchNorm2d):
-                nn.init.constant_(m.weight, 1)
-                nn.init.constant_(m.bias, 0)
-        
-    def forward(self, x):
-        x1 = self.stage1(x)
-        x2 = self.stage2(x1)
-        x3 = self.stage3(x2)
-
-        return self.fpn(x1, x2, x3)
-
 class FeatureExtractor_resnet(nn.Module):
     def __init__(self):
         super().__init__()
@@ -154,7 +81,7 @@ class FeatureExtractor_MobileNetV4(nn.Module):
     def __init__(self):
         super().__init__()
         model = timm.create_model("mobilenetv4_hybrid_medium.ix_e550_r384_in1k", 
-                                    pretrained=True,
+                                    pretrained=False,
                                     features_only=True,
                                     # pretrained_cfg_overlay=dict(file='C:/Users/lrq/Desktop/mobilenetv4/snapshots/11/model.safetensors'),
                                     out_indices=[2, 3]
@@ -170,7 +97,7 @@ class FeatureExtractor_MobileNetV4_FPN(nn.Module):
     def __init__(self):
         super().__init__()
         model = timm.create_model("mobilenetv4_hybrid_medium.ix_e550_r384_in1k", 
-                                    pretrained=True,
+                                    pretrained=False,
                                     features_only=True,
                                     # pretrained_cfg_overlay=dict(file='C:/Users/lrq/Desktop/mobilenetv4/snapshots/11/model.safetensors'),
                                     out_indices=[2, 3, 4]
@@ -184,12 +111,64 @@ class FeatureExtractor_MobileNetV4_FPN(nn.Module):
         [p3, p4, _] = self.fpn([c3, c4, c5])
         return [p3, p4]
 
+class FeatureExtractor_C3k2(nn.Module):
+    def __init__(self):
+        super().__init__()
+        width = 0.75
+        depth = 1
+
+        channels = [64, 128, 256, 512, 1024]
+        channels = [int(c * width) for c in channels]
+
+        depth_list = [2, 2, 2, 2, 2]
+        depth_list = [int(d * depth) for d in depth_list]
+        
+        self.stage1 = nn.Sequential(
+            Conv(3, channels[0], k=3, s=2),  # 1/2
+            Conv(channels[0], channels[1], k=3, s=2),  # 1/4
+            C3k2(channels[1], channels[2], depth_list[0], False, 0.25),
+        )
+        self.stage2 = nn.Sequential(
+            Conv(channels[2], channels[2], k=3, s=2),  # 1/8
+            C3k2(channels[2], channels[3], depth_list[1], False, 0.25),
+        )
+        self.stage3 = nn.Sequential(
+            Conv(channels[3], channels[3], k=3, s=2),  # 1/16
+            C3k2(channels[3], channels[3], depth_list[2], True),
+        )
+        # self.stage4 = nn.Sequential(
+        #     Conv(channels[3], channels[4], k=3, s=2),  # 1/32
+        #     C3k2(channels[4], channels[4], depth_list[3], True),
+        #     SPPF(channels[4], channels[4], 5),
+        #     C2PSA(channels[4], channels[4], depth_list[4], 0.25)
+        # )
+
+        self._initialize_weights()
+
+    def forward(self, x):
+        c2 = self.stage1(x)
+        c3 = self.stage2(c2)
+        c4 = self.stage3(c3)
+        # c5 = self.stage4(c4)
+
+        return [c3, c4]
+    
+    def _initialize_weights(self):
+        for m in self.modules():
+            if isinstance(m, nn.Conv2d):
+                nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
+                if m.bias is not None:
+                    nn.init.constant_(m.bias, 0)
+            elif isinstance(m, nn.BatchNorm2d):
+                nn.init.constant_(m.weight, 1)
+                nn.init.constant_(m.bias, 0)
 
 if __name__ == '__main__':
     # model = FeatureExtractor_ConvNextTiny()
     # model = FeatureExtractor_resnet()
     # model = FeatureExtractor_resnet_fpn()
-    model = FeatureExtractor_MobileNetV4_FPN()
+    # model = FeatureExtractor_MobileNetV4_FPN()
+    model = FeatureExtractor_C3k2()
     input = torch.randn(1, 3, 512, 512)
     features = model(input)  # 得到4个尺度的特征图
 

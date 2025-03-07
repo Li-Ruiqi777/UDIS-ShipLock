@@ -164,8 +164,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
     parser.add_argument('--gpu', type=str, default='0')
-    parser.add_argument('--batch_size', type=int, default=1)
-    parser.add_argument("--num_workers", type=int, default=1)
+    parser.add_argument('--batch_size', type=int, default=2)
+    parser.add_argument("--num_workers", type=int, default=0)
     parser.add_argument('--max_epoch', type=int, default=50)
     parser.add_argument('--save_epoch_interval', type=int, default=10)
     parser.add_argument('--print_log_interval', type=int, default=20)
@@ -174,8 +174,8 @@ if __name__ == "__main__":
     parser.add_argument('--warmup_epoch', type=int, default=10)
     parser.add_argument('--train_dataset_path', type=str, default='E:/DeepLearning/0_DataSets/007-UDIS-D-subset/test')
     parser.add_argument('--ckpt_path', type=str, default='E:/DeepLearning/7_Stitch/UDIS2/Composition/model/epoch50_model.pth')
-    parser.add_argument('--model_save_folder', type=str, default='F:/MasterGraduate/03-Code/UDIS-ShipLock/model/Fusion/')
-    parser.add_argument('--tensorboard_save_folder', type=str, default='F:/MasterGraduate/03-Code/UDIS-ShipLock/summary/Fusion/')
+    parser.add_argument('--model_save_folder', type=str, default='F:/MasterGraduate/03-Code/UDIS-ShipLock/model/Fusion/UDIS2')
+    parser.add_argument('--tensorboard_save_folder', type=str, default='F:/MasterGraduate/03-Code/UDIS-ShipLock/summary/Fusion/UDIS2')
     args = parser.parse_args()
 
     if(not os.path.exists(args.tensorboard_save_folder)):

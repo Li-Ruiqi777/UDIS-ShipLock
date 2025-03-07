@@ -24,7 +24,7 @@ def test_fusion(args):
     test_loader = DataLoader(
         dataset=test_data,
         batch_size=args.batch_size,
-        num_workers=4,
+        num_workers=args.num_workers,
         shuffle=False,
         drop_last=False,
     )
@@ -89,9 +89,9 @@ if __name__ == "__main__":
     parser.add_argument("--gpu", type=str, default="0")
     parser.add_argument("--batch_size", type=int, default=1)
     parser.add_argument("--num_workers", type=int, default=4)
-    parser.add_argument('--ckpt_path', type=str, default='E:/DeepLearning/7_Stitch/UDIS2/Composition/model/epoch050_model.pth')
-    parser.add_argument('--save_path', type=str, default='E:/DeepLearning/7_Stitch/UDIS2/Composition/results/')
     parser.add_argument("--test_dataset_path",type=str, default="E:/DeepLearning/0_DataSets/007-UDIS-D-subset/test")
+    parser.add_argument('--ckpt_path', type=str, default='F:/MasterGraduate/03-Code/UDIS-ShipLock/model/Fusion/UDIS2/epoch050_model.pth')
+    parser.add_argument('--save_path', type=str, default='F:/MasterGraduate/03-Code/UDIS-ShipLock/results/Fusion')
     args = parser.parse_args()
     
     test_fusion(args)

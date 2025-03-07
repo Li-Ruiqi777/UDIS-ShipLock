@@ -109,13 +109,13 @@ class SeamQuality():
         img2_m = input2 * dst
         stitchedImg = stitchedImg * dst
 
-        cv2.imshow('dst', dst)
-        cv2.imshow('input1', input1)
-        cv2.imshow('input2', input2)
-        cv2.imshow('img1_m', img1_m)
-        cv2.imshow('img2_m', img2_m)
-        cv2.imshow('stitchedImg', stitchedImg)
-        cv2.waitKey(0)
+        # cv2.imshow('dst', dst)
+        # cv2.imshow('input1', input1)
+        # cv2.imshow('input2', input2)
+        # cv2.imshow('img1_m', img1_m)
+        # cv2.imshow('img2_m', img2_m)
+        # cv2.imshow('stitchedImg', stitchedImg)
+        # cv2.waitKey(0)
 
         lp_1 = self.intensity_loss(img1_m, stitchedImg, l_num=self.l_num)
         lp_2 = self.intensity_loss(img2_m, stitchedImg, l_num=self.l_num)
@@ -143,8 +143,8 @@ class SeamQuality():
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--warp_result_path', type=str, default='E:/DeepLearning/7_Stitch/UDIS2/Warp/results/stitch/2025-03-05_21-46-46')
-    parser.add_argument('--fusion_result_path', type=str, default='E:/DeepLearning/7_Stitch/UDIS2/Composition/results/2025-03-05_21-48-49')
+    parser.add_argument('--warp_result_path', type=str, default='E:/DeepLearning/0_DataSets/007-UDIS-D-subset/test')
+    parser.add_argument('--fusion_result_path', type=str, default='F:/MasterGraduate/03-Code/UDIS-ShipLock/results/Fusion/2025-03-06_19-20-50')
     args = parser.parse_args()
     
     quantitative_analysis(args)

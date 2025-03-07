@@ -37,3 +37,27 @@ Number of FLOPs: 20.84 G
 Number of Params: 81.78 M
 Number of FLOPs: 4.23 G
 ```
+
+7.UDIS2替换BacKBone为MobileNet-V4
+```
+Number of Params: 77.94 M
+Number of FLOPs: 10.88 G
+```
+
+8.UDIS2替换BacKBone为MobileNet-V4 + AFPN
+```
+Number of Params: 83.46 M
+Number of FLOPs: 14.75 G
+```
+
+9.UDIS2 + FPN
+```
+Number of Params: 79.54 M
+Number of FLOPs: 42.95 G
+```
+
+10.主干换成YOLO11(width=0.75, depth=1.0)
+```
+Number of Params: 72.85 M
+Number of FLOPs: 16.47 G
+```

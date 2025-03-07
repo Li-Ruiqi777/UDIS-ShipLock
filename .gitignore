@@ -171,3 +171,7 @@ cython_debug/
 .pypirc
 
 *.jpg
+*.pt
+*.pth
+
+*events*

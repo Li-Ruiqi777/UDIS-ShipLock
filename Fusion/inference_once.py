@@ -85,7 +85,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--gpu", type=str, default="0")
     parser.add_argument("--img_path", type=str, default="E:/DeepLearning/7_Stitch/UDIS2/Carpark-DHW/")
-    parser.add_argument('--ckpt_path', type=str, default='E:/DeepLearning/7_Stitch/UDIS2/Composition/model/epoch050_model.pth')
+    parser.add_argument('--ckpt_path', type=str, default='F:/MasterGraduate/03-Code/UDIS-ShipLock/model/Fusion/UDIS2/epoch020_model.pth')
     parser.add_argument('--save_path', type=str, default='F:/MasterGraduate/03-Code/UDIS-ShipLock/results/Fusion/inference_once/')
     args = parser.parse_args()
 
