@@ -1,4 +1,4 @@
-#UDIS2
+#UDIS-ShipLock
 
 ## TODO
 
@@ -110,3 +110,18 @@ def _forward_impl(self, x: Tensor) -> Tensor:
 8.MultiHead Self-Attention和Single Head Self-Attention的区别
 
 MultiHead中，一个Token会生成多组qkv，而Single Head Self-Attention中只生成一组
+
+
+
+9.YOLO中的C3k2之类的模块到底用什么作用？
+
+- [【YOLO】深入理解 CSP 瓶颈模块的变种：Bottleneck、C3、C3k、C2f 和 C3k2_csp模块-CSDN博客](https://blog.csdn.net/weixin_43694096/article/details/144034254)
+- [深入浅出之C2F模块(YOLO)-CSDN博客](https://blog.csdn.net/a8039974/article/details/143116935)
+- [YOLO全系列模块详解（持续更新）_c3k2-CSDN博客](https://blog.csdn.net/Alex_Tlover/article/details/142764338)
+
+
+
+10.模型轻量化的方法：
+
+- [深入浅出理解深度可分离卷积（Depthwise Separable Convolution）_dwconv-CSDN博客](https://blog.csdn.net/m0_37605642/article/details/134174749)
+- [FasterNet（CVPR 2023）论文解读_fasternet论文-CSDN博客](https://blog.csdn.net/ooooocj/article/details/135574234)

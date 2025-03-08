@@ -9,8 +9,9 @@ import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '.')))
 
 from Conv import Conv
-from block import C3k2, SPPF, C2PSA
+from block import *
 from afpn import AFPN_P345
+from bifpn import BiFPN
 
 class FeatureExtractor_resnet(nn.Module):
     def __init__(self):
@@ -120,11 +121,11 @@ class FeatureExtractor_C3k2(nn.Module):
         channels = [64, 128, 256, 512, 1024]
         channels = [int(c * width) for c in channels]
 
-        depth_list = [2, 2, 2, 2, 2]
+        depth_list = [3, 6, 9, 3, 2]
         depth_list = [int(d * depth) for d in depth_list]
         
         self.stage1 = nn.Sequential(
-            Conv(3, channels[0], k=3, s=2),  # 1/2
+            Conv(3, channels[0], k=7, s=2),  # 1/2
             Conv(channels[0], channels[1], k=3, s=2),  # 1/4
             C3k2(channels[1], channels[2], depth_list[0], False, 0.25),
         )
@@ -163,12 +164,124 @@ class FeatureExtractor_C3k2(nn.Module):
                 nn.init.constant_(m.weight, 1)
                 nn.init.constant_(m.bias, 0)
 
+class FeatureExtractor_C3k2_Faster(FeatureExtractor_C3k2):
+    def __init__(self):
+        super().__init__()
+        width = 0.75
+        depth = 1
+
+        channels = [64, 128, 256, 512, 1024]
+        channels = [int(c * width) for c in channels]
+
+        depth_list = [3, 6, 9, 3, 2]
+        depth_list = [int(d * depth) for d in depth_list]
+        
+        self.stage1 = nn.Sequential(
+            Conv(3, channels[0], k=7, s=2),  # 1/2
+            Conv(channels[0], channels[1], k=3, s=2),  # 1/4
+            C3k2_Faster(channels[1], channels[2], depth_list[0], False, 0.25),
+        )
+        self.stage2 = nn.Sequential(
+            Conv(channels[2], channels[2], k=3, s=2),  # 1/8
+            C3k2_Faster(channels[2], channels[3], depth_list[1], False, 0.25),
+        )
+        self.stage3 = nn.Sequential(
+            Conv(channels[3], channels[3], k=3, s=2),  # 1/16
+            C3k2_Faster(channels[3], channels[3], depth_list[2], True),
+        )
+        # self.stage4 = nn.Sequential(
+        #     Conv(channels[3], channels[4], k=3, s=2),  # 1/32
+        #     C3k2_Faster(channels[4], channels[4], depth_list[3], True),
+        #     SPPF(channels[4], channels[4], 5),
+        #     C2PSA(channels[4], channels[4], depth_list[4], 0.25)
+        # )
+
+        self._initialize_weights()
+
+class FeatureExtractor_C3k2_EIEM_Faster(FeatureExtractor_C3k2):
+    def __init__(self):
+        super().__init__()
+        width = 0.75
+        depth = 1
+
+        channels = [64, 128, 256, 512, 1024]
+        channels = [int(c * width) for c in channels]
+
+        depth_list = [3, 6, 9, 3, 2]
+        depth_list = [int(d * depth) for d in depth_list]
+        
+        self.stage1 = nn.Sequential(
+            Conv(3, channels[0], k=7, s=2),  # 1/2
+            Conv(channels[0], channels[1], k=3, s=2),  # 1/4
+            C3k2_EIEM_Faster(channels[1], channels[2], depth_list[0], False, 0.25),
+        )
+        self.stage2 = nn.Sequential(
+            Conv(channels[2], channels[2], k=3, s=2),  # 1/8
+            C3k2_EIEM_Faster(channels[2], channels[3], depth_list[1], False, 0.25),
+        )
+        self.stage3 = nn.Sequential(
+            Conv(channels[3], channels[3], k=3, s=2),  # 1/16
+            C3k2_EIEM_Faster(channels[3], channels[3], depth_list[2], True),
+        )
+        # self.stage4 = nn.Sequential(
+        #     Conv(channels[3], channels[4], k=3, s=2),  # 1/32
+        #     C3k2_Faster(channels[4], channels[4], depth_list[3], True),
+        #     SPPF(channels[4], channels[4], 5),
+        #     C2PSA(channels[4], channels[4], depth_list[4], 0.25)
+        # )
+
+        self._initialize_weights()
+
+class FeatureExtractor_C3k2_EIEM_Faster_BiFPN(FeatureExtractor_C3k2):
+    def __init__(self):
+        super().__init__()
+        width = 0.75
+        depth = 1
+
+        channels = [64, 128, 256, 512, 1024]
+        channels = [int(c * width) for c in channels]
+
+        depth_list = [3, 6, 9, 3, 2]
+        depth_list = [int(d * depth) for d in depth_list]
+        
+        self.stage1 = nn.Sequential(
+            Conv(3, channels[0], k=7, s=2),            # 1/2
+            Conv(channels[0], channels[1], k=3, s=2),  # 1/4
+            C3k2_EIEM_Faster(channels[1], channels[2], depth_list[0], False, 0.25),
+        )
+        self.stage2 = nn.Sequential(
+            Conv(channels[2], channels[2], k=3, s=2),  # 1/8
+            C3k2_EIEM_Faster(channels[2], channels[3], depth_list[1], False, 0.25),
+        )
+        self.stage3 = nn.Sequential(
+            Conv(channels[3], channels[3], k=3, s=2),  # 1/16
+            C3k2_EIEM_Faster(channels[3], channels[3], depth_list[2], True),
+        )
+        self.stage4 = nn.Sequential(
+            Conv(channels[3], channels[4], k=3, s=2),  # 1/32
+            C3k2_Faster(channels[4], channels[4], depth_list[3], True),
+            # SPPF(channels[4], channels[4], 5),
+            # C2PSA(channels[4], channels[4], depth_list[4], 0.25)
+        )
+
+        self.fpn = BiFPN([channels[3], channels[3], channels[4]])
+
+        self._initialize_weights()
+
+    def forward(self, x):
+        c2 = self.stage1(x)
+        c3 = self.stage2(c2)
+        c4 = self.stage3(c3)
+        c5 = self.stage4(c4)
+        [p3, p4] = self.fpn([c3, c4, c5])
+
+        return [p3, p4]
 if __name__ == '__main__':
     # model = FeatureExtractor_ConvNextTiny()
     # model = FeatureExtractor_resnet()
     # model = FeatureExtractor_resnet_fpn()
     # model = FeatureExtractor_MobileNetV4_FPN()
-    model = FeatureExtractor_C3k2()
+    model = FeatureExtractor_C3k2_EIEM_Faster_BiFPN()
     input = torch.randn(1, 3, 512, 512)
     features = model(input)  # 得到4个尺度的特征图
 

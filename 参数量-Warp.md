@@ -56,8 +56,32 @@ Number of Params: 79.54 M
 Number of FLOPs: 42.95 G
 ```
 
-10.主干换成YOLO11(width=0.75, depth=1.0)
+10.主干换成YOLO11, C3k2的depth为[2, 2, 2, 2, 2]
 ```
 Number of Params: 72.85 M
-Number of FLOPs: 16.47 G
+Number of FLOPs: 17.23 G
+```
+
+11.主干换成YOLO11, C3k2的depth为[3, 6, 9, 3, 2]
+```
+Number of Params: 72.85 M
+Number of FLOPs: 29.08 G
+```
+
+12.C3k2-Faster, depth为[3, 6, 9, 3, 2]
+```
+Number of Params: 74.23 M
+Number of FLOPs: 21.51 G
+```
+
+13.C3k2-EIEM-Faster, depth为[3, 6, 9, 3, 2]
+```
+Number of Params: 73.94 M
+Number of FLOPs: 20.70 G
+```
+
+14.C3k2-EIEM-Faster-BiFPN, depth为[3, 6, 9, 3, 2]
+```
+Number of Params: 73.94 M
+Number of FLOPs: 25.70 G
 ```
