@@ -5,7 +5,6 @@ import os
 import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '.')))
 
-
 from block import *
 
 class HomoRegressNet(nn.Module):
@@ -85,8 +84,49 @@ class HomoRegressNet_SPDConv(HomoRegressNet):
         )
         super()._initialize_weights()
 
+class HomoRegressNet_SPP(HomoRegressNet):
+    def __init__(self):
+        super().__init__()
+
+        # 下采样1/8
+        self.stage1 = nn.Sequential(
+            nn.Conv2d(2, 64, kernel_size=3, padding=1, bias=False),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(64, 64, kernel_size=3, padding=1, bias=False),
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(2, 2), # 1/2
+
+            nn.Conv2d(64, 128, kernel_size=3, padding=1, bias=False),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(128, 128, kernel_size=3, padding=1, bias=False),
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(2, 2), # 1/4
+
+            nn.Conv2d(128, 256, kernel_size=3, padding=1, bias=False),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(256, 256, kernel_size=3, padding=1, bias=False),
+            nn.ReLU(inplace=True),
+            # nn.MaxPool2d(2, 2)  # 1/8
+            
+            EfficientChannelAttention(256),
+            nn.Conv2d(256, 128, kernel_size=1, stride=1, padding=1, bias=False),
+            SPP([1, 2, 4])
+        )
+
+        self.stage2 = nn.Sequential(
+            nn.Linear(128 * (1 + 4 + 16), 2048, True),
+            nn.ReLU(True),
+
+            nn.Linear(2048, 1024, True),
+            nn.ReLU(True),
+
+            nn.Linear(1024, 8, True)
+        )
+        
+        self._initialize_weights()
+
 if __name__ == '__main__':
-    model = HomoRegressNet_SPDConv()
+    model = HomoRegressNet_SPP()
     feature = torch.rand(1, 2, 32, 32)
     ouput = model(feature)
     print(ouput.shape)

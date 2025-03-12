@@ -93,8 +93,52 @@ class MeshRegressNet_SPDConv(MeshRegressNet):
         )
         super()._initialize_weights()
 
+class MeshRegressNet_SPP(MeshRegressNet):
+    def __init__(self, grid_size):
+        super().__init__(grid_size)
+        self.stage1 = nn.Sequential(
+            nn.Conv2d(2, 64, kernel_size=3, padding=1, bias=False),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(64, 64, kernel_size=3, padding=1, bias=False),
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(2, 2),
+
+            nn.Conv2d(64, 128, kernel_size=3, padding=1, bias=False),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(128, 128, kernel_size=3, padding=1, bias=False),
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(2, 2),
+
+            nn.Conv2d(128, 256, kernel_size=3, padding=1, bias=False),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(256, 256, kernel_size=3, padding=1, bias=False),
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(2, 2),
+
+            nn.Conv2d(256, 512, kernel_size=3, padding=1, bias=False),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(512, 512, kernel_size=3, padding=1, bias=False),
+            nn.ReLU(inplace=True),
+            # nn.MaxPool2d(2, 2)
+
+            EfficientChannelAttention(512),
+            nn.Conv2d(512, 256, kernel_size=1, stride=1, padding=1, bias=False),
+            SPP([1, 2, 4])
+        )
+
+        self.stage2 = nn.Sequential(
+            nn.Linear(in_features=256*(1+4+16), out_features=2048, bias=True),
+            nn.ReLU(inplace=True),
+
+            nn.Linear(in_features=2048, out_features=1024, bias=True),
+            nn.ReLU(inplace=True),
+
+            nn.Linear(in_features=1024, out_features=(self.grid_w+1)*(self.grid_h+1)*2, bias=True)
+        )
+        super()._initialize_weights()
+
 if __name__ == '__main__':
-    model = MeshRegressNet_SPDConv([12, 12])
+    model = MeshRegressNet_SPP([12, 12])
     feature = torch.rand(1, 2, 64, 64)
     ouput = model(feature)
     print(ouput.shape)
