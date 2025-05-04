@@ -76,6 +76,7 @@ def save_stitch_result(batch_outputs, image_saver, idx):
     # image_saver.add_image(f'{str(idx + 1).zfill(6)}_fusion', ave_fusion[0])
 
     # 结果放在多个文件夹(作为Fustion训练/测试的数据集)
+    image_saver.add_image(f'ave_fusion/{str(idx + 1).zfill(6)}', ave_fusion[0])
     image_saver.add_image(f'warp1/{str(idx + 1).zfill(6)}', translated_reference[0])
     image_saver.add_image(f'warp2/{str(idx + 1).zfill(6)}', tps_warped_target[0])
     image_saver.add_image(f'mask1/{str(idx + 1).zfill(6)}', translated_mask[0])
@@ -105,7 +106,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
     parser.add_argument("--gpu", type=str, default="0")
-    parser.add_argument("--batch_size", type=int, default=1)
+    parser.add_argument("--batch_size", type=int, default=1) # 必须调成1
     parser.add_argument("--num_workers", type=int, default=4)
     parser.add_argument('--ckpt_path', type=str, default='F:/MasterGraduate/03-Code/UDIS-ShipLock/model/Warp/UDIS-Ship/epoch120_model.pth')
     parser.add_argument('--save_path', type=str, default='F:/MasterGraduate/03-Code/UDIS-ShipLock/results/Warp/stitch')

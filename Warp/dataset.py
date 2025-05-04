@@ -49,14 +49,15 @@ class TrainDataset(Dataset):
         input1_tensor = torch.tensor(input1)
         input2_tensor = torch.tensor(input2)
 
-        # print("fasdf")
+        # 提取文件名
+        file_name = os.path.basename(self.datas["input1"]["image"][index])
+
         if_exchange = random.randint(0, 1)
+        # if_exchange = 1
         if if_exchange == 0:
-            # print(if_exchange)
-            return (input1_tensor, input2_tensor)
+            return (input1_tensor, input2_tensor, file_name)
         else:
-            # print(if_exchange)
-            return (input2_tensor, input1_tensor)
+            return (input2_tensor, input1_tensor, file_name)
 
     def __len__(self):
 
