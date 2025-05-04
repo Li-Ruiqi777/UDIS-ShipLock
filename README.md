@@ -4,9 +4,12 @@
 
 - [x] 重新搞个BackBone，还是先H再Mesh但不用ResNet，重新封装个类
 - [x] 把模型定义和计算结构搞成2个文件分开来
-- [ ] 看论文了解注意力机制一般加在哪里？加几个?
-
-
+- [x] 看论文了解注意力机制一般加在哪里？加几个?
+- [x] 确定新数据集训练时的图片大小，是和UDIS-D一样用512x512还是resize到保留原始纵横比?做2组实验对比
+- [x] 重新整理数据集，删掉视差太大的
+- [ ] 整理仓库中文件夹结构
+- [ ] 整理UDIS2在UDIS-Ship数据集的指标
+- [ ] 训练UANet（DSELBlock/FPN/可变形卷积）
 
 ## 开发中遇到的问题
 
@@ -125,3 +128,7 @@ MultiHead中，一个Token会生成多组qkv，而Single Head Self-Attention中�
 
 - [深入浅出理解深度可分离卷积（Depthwise Separable Convolution）_dwconv-CSDN博客](https://blog.csdn.net/m0_37605642/article/details/134174749)
 - [FasterNet（CVPR 2023）论文解读_fasternet论文-CSDN博客](https://blog.csdn.net/ooooocj/article/details/135574234)
+
+
+
+11.`fine tuning.py`的代码输入到模型推理的时候需要resize到512，但是最后拼接的时候不会reszie，以原图大小进行拼接

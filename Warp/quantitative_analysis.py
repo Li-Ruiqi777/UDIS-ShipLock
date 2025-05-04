@@ -34,7 +34,7 @@ def quantitative_analysis(args):
         drop_last=False,
     )
 
-    model = UANet().to(device)
+    model = UDIS2().to(device)
     model.eval()
 
     # 加载权重
@@ -115,8 +115,8 @@ if __name__ == "__main__":
 
     parser.add_argument("--gpu", type=str, default="0")
     parser.add_argument("--batch_size", type=int, default=1)
-    parser.add_argument("--test_dataset_path", type=str, default="E:/DeepLearning/0_DataSets/007-UDIS-D-subset/test/",)
-    parser.add_argument('--ckpt_path', type=str, default='F:/MasterGraduate/03-Code/UDIS-ShipLock/model/Warp/C3k2-EIEM-Faster-FPN/epoch110_model.pth')
+    parser.add_argument("--test_dataset_path", type=str, default="F:/imgs-purge/same_camera/test/",)
+    parser.add_argument('--ckpt_path', type=str, default='F:/MasterGraduate/03-Code/UDIS-ShipLock/model/Warp/UDIS-Ship/epoch110_model.pth')
     args = parser.parse_args()
     
     quantitative_analysis(args)

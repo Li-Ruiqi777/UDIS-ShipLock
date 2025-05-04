@@ -144,7 +144,7 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--warp_result_path', type=str, default='E:/DeepLearning/0_DataSets/007-UDIS-D-subset/test')
-    parser.add_argument('--fusion_result_path', type=str, default='F:/MasterGraduate/03-Code/UDIS-ShipLock/results/Fusion/2025-03-06_19-20-50')
+    parser.add_argument('--fusion_result_path', type=str, default='F:/MasterGraduate/03-Code/UDIS-ShipLock/results/Fusion/UDIS2-20')
     args = parser.parse_args()
     
     quantitative_analysis(args)

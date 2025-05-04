@@ -22,7 +22,7 @@ def test_stitch(args):
     os.environ["CUDA_DEVICES_ORDER"] = "PCI_BUS_ID"
     os.environ["CUDA_VISIBLE_DEVICES"] = args.gpu
 
-    test_dataset = TestDataset(data_path=args.test_dataset_path)
+    test_dataset = TestDataset(data_path=args.test_dataset_path, width=1024, height=456)
     test_dataloader = DataLoader(
         dataset=test_dataset,
         batch_size=args.batch_size,
@@ -107,9 +107,9 @@ if __name__ == "__main__":
     parser.add_argument("--gpu", type=str, default="0")
     parser.add_argument("--batch_size", type=int, default=1)
     parser.add_argument("--num_workers", type=int, default=4)
-    parser.add_argument('--ckpt_path', type=str, default='E:/DeepLearning/7_Stitch/UDIS2/Warp/model/epoch100_model.pth')
-    parser.add_argument('--save_path', type=str, default='E:/DeepLearning/7_Stitch/UDIS2/Warp/results/stitch')
-    parser.add_argument("--test_dataset_path",type=str, default="E:/DeepLearning/0_DataSets/007-UDIS-D-subset/train")
+    parser.add_argument('--ckpt_path', type=str, default='F:/MasterGraduate/03-Code/UDIS-ShipLock/model/Warp/UDIS-Ship/epoch120_model.pth')
+    parser.add_argument('--save_path', type=str, default='F:/MasterGraduate/03-Code/UDIS-ShipLock/results/Warp/stitch')
+    parser.add_argument("--test_dataset_path",type=str, default="F:/imgs-purge/same_camera/test")
     args = parser.parse_args()
 
     test_stitch(args)

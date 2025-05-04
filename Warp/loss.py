@@ -101,8 +101,8 @@ def get_intra_grid_loss(pts):
     max_w = 512 / grid_w * 2
     max_h = 512 / grid_h * 2
 
-    delta_x = pts[:, :, 1 : grid_w + 1, 0] - pts[:, :, 0:grid_w, 0]
-    delta_y = pts[:, 1 : grid_h + 1, :, 1] - pts[:, 0:grid_h, :, 1]
+    delta_x = pts[:, :, 1:grid_w+1, 0] - pts[:, :, 0:grid_w, 0]
+    delta_y = pts[:, 1:grid_h+1, :, 1] - pts[:, 0:grid_h, :, 1]
 
     loss_x = F.relu(delta_x - max_w)
     loss_y = F.relu(delta_y - max_h)
