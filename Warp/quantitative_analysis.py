@@ -25,7 +25,7 @@ def quantitative_analysis(args):
     os.environ["CUDA_DEVICES_ORDER"] = "PCI_BUS_ID"
     os.environ["CUDA_VISIBLE_DEVICES"] = args.gpu
 
-    test_dataset = TestDataset(data_path=args.test_dataset_path)
+    test_dataset = TestDataset(data_path=args.test_dataset_path, width=512, height=512)
     test_dataloader = DataLoader(
         dataset=test_dataset,
         batch_size=args.batch_size,
@@ -34,7 +34,7 @@ def quantitative_analysis(args):
         drop_last=False,
     )
 
-    model = UANet().to(device)
+    model = UDIS2().to(device)
     model.eval()
 
     # 加载权重
@@ -115,8 +115,12 @@ if __name__ == "__main__":
 
     parser.add_argument("--gpu", type=str, default="0")
     parser.add_argument("--batch_size", type=int, default=1)
-    parser.add_argument("--test_dataset_path", type=str, default="E:/DeepLearning/0_DataSets/007-UDIS-D-subset/test/",)
-    parser.add_argument('--ckpt_path', type=str, default='F:/MasterGraduate/03-Code/UDIS-ShipLock/model/Warp/C3k2-EIEM-Faster-FPN/epoch110_model.pth')
+    parser.add_argument("--test_dataset_path", type=str, default="F:/dataset/UDIS-Ship/test",)
+    parser.add_argument('--ckpt_folder', type=str, default='C:/Users/USER/Desktop/UDIS-ShipLock/model/Warp/UDIS-Ship/UDIS2/fine_tuning2')
+    parser.add_argument('--ckpt_path', type=str, default='')
     args = parser.parse_args()
     
-    quantitative_analysis(args)
+    for file in os.listdir(args.ckpt_folder):
+        if file.endswith('.pth'):
+            args.ckpt_path = os.path.join(args.ckpt_folder, file)
+            quantitative_analysis(args)
