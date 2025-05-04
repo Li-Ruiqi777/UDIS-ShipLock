@@ -112,6 +112,7 @@ def get_batch_outputs_for_train(net, ref_tensor, target_tensor, is_training=True
 def get_batch_outputs_for_stitch(net, ref_tensor, target_tensor):
     """
     用于计算拼接时一个batch的输出, 输出图像的大小和最终拼接结果图像的大小一致
+    由于是测试,所以输入图片的大小不一定得是512,但是推理之前会resize到512,结果再resize回原尺寸
     
     1.用网络预测H的4pt和TPS的控制点的偏移
     2.根据变换后控制点的坐标最值,确定stitched img的h,w大小
@@ -126,13 +127,9 @@ def get_batch_outputs_for_stitch(net, ref_tensor, target_tensor):
 
     H_motion = H_motion.reshape(-1, 4, 2)
     # 由于H是在(512,512)分辨率下训练的,这里先除以512再乘以当前的h,w是为了适应不同的分辨率
-    H_motion = torch.stack(
-        [H_motion[..., 0] * img_w / 512, H_motion[..., 1] * img_h / 512], 2
-    )
+    H_motion = torch.stack([H_motion[..., 0] * img_w / 512, H_motion[..., 1] * img_h / 512], 2)
     mesh_motion = mesh_motion.reshape(-1, grid_h + 1, grid_w + 1, 2)
-    mesh_motion = torch.stack(
-        [mesh_motion[..., 0] * img_w / 512, mesh_motion[..., 1] * img_h / 512], 3
-    )
+    mesh_motion = torch.stack([mesh_motion[..., 0] * img_w / 512, mesh_motion[..., 1] * img_h / 512], 3)
 
     src_p = torch.FloatTensor([[0.0, 0.0], [img_w, 0.0], [0.0, img_h], [img_w, img_h]]).to(device)
     src_p = src_p.unsqueeze(0).expand(batch_size, -1, -1)

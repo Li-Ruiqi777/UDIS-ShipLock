@@ -86,7 +86,7 @@ Number of Params: 73.94 M
 Number of FLOPs: 25.70 G
 ```
 
-15.C3k2-EIEM-Faster-BiFPN, 回归网络用SPP
+15.C3k2-EIEM-Faster, 回归网络用SPP + ECA
 ```
 Number of Params: 73.94 M
 Number of FLOPs: 25.70 G
