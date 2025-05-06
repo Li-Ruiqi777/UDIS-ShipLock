@@ -1,0 +1,238 @@
+odict_keys(['input1', 'input2'])
+[INFO] [18896] 15:25:06-quantitative_analysis.py(line: 42) : load model from C:/Users/USER/Desktop/UDIS-ShipLock/model/UDIS-ship/Warp/C3k2-Faster\epoch010_model.pth!
+Processing batches: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████| 300/300 [00:41<00:00,  7.29it/s]
+[INFO] [18896] 15:25:53-quantitative_analysis.py(line: 87) : totoal image nums: 300
+[INFO] [18896] 15:25:53-quantitative_analysis.py(line: 89) : --------------------- PSNR --------------------- 
+[INFO] [18896] 15:25:53-quantitative_analysis.py(line: 95) : top 30%: 17.881884
+[INFO] [18896] 15:25:53-quantitative_analysis.py(line: 96) : top 30~60%: 16.499172
+[INFO] [18896] 15:25:53-quantitative_analysis.py(line: 97) : top 60~100%: 14.423406
+[INFO] [18896] 15:25:53-quantitative_analysis.py(line: 98) : average psnr: 16.079032
+[INFO] [18896] 15:25:53-quantitative_analysis.py(line: 100) : --------------------- SSIM ---------------------
+[INFO] [18896] 15:25:53-quantitative_analysis.py(line: 106) : top 30%: 0.551271
+[INFO] [18896] 15:25:53-quantitative_analysis.py(line: 107) : top 30~60%: 0.404497
+[INFO] [18896] 15:25:53-quantitative_analysis.py(line: 108) : top 60~100%: 0.186340
+[INFO] [18896] 15:25:53-quantitative_analysis.py(line: 109) : average ssim: 0.360927
+odict_keys(['input1', 'input2'])
+[INFO] [18896] 15:25:54-quantitative_analysis.py(line: 42) : load model from C:/Users/USER/Desktop/UDIS-ShipLock/model/UDIS-ship/Warp/C3k2-Faster\epoch020_model.pth!
+Processing batches: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████| 300/300 [00:38<00:00,  7.76it/s]
+[INFO] [18896] 15:26:38-quantitative_analysis.py(line: 87) : totoal image nums: 300
+[INFO] [18896] 15:26:38-quantitative_analysis.py(line: 89) : --------------------- PSNR ---------------------
+[INFO] [18896] 15:26:38-quantitative_analysis.py(line: 95) : top 30%: 17.882039
+[INFO] [18896] 15:26:38-quantitative_analysis.py(line: 96) : top 30~60%: 16.499908
+[INFO] [18896] 15:26:38-quantitative_analysis.py(line: 97) : top 60~100%: 14.425159
+[INFO] [18896] 15:26:38-quantitative_analysis.py(line: 98) : average psnr: 16.079998
+[INFO] [18896] 15:26:38-quantitative_analysis.py(line: 100) : --------------------- SSIM ---------------------
+[INFO] [18896] 15:26:38-quantitative_analysis.py(line: 106) : top 30%: 0.551374
+[INFO] [18896] 15:26:38-quantitative_analysis.py(line: 107) : top 30~60%: 0.404588
+[INFO] [18896] 15:26:38-quantitative_analysis.py(line: 108) : top 60~100%: 0.186416
+[INFO] [18896] 15:26:38-quantitative_analysis.py(line: 109) : average ssim: 0.361014
+odict_keys(['input1', 'input2'])
+[INFO] [18896] 15:26:39-quantitative_analysis.py(line: 42) : load model from C:/Users/USER/Desktop/UDIS-ShipLock/model/UDIS-ship/Warp/C3k2-Faster\epoch030_model.pth!
+Processing batches: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████| 300/300 [00:38<00:00,  7.74it/s]
+[INFO] [18896] 15:27:23-quantitative_analysis.py(line: 87) : totoal image nums: 300
+[INFO] [18896] 15:27:23-quantitative_analysis.py(line: 89) : --------------------- PSNR ---------------------
+[INFO] [18896] 15:27:23-quantitative_analysis.py(line: 95) : top 30%: 17.882212
+[INFO] [18896] 15:27:23-quantitative_analysis.py(line: 96) : top 30~60%: 16.499722
+[INFO] [18896] 15:27:23-quantitative_analysis.py(line: 97) : top 60~100%: 14.426337
+[INFO] [18896] 15:27:23-quantitative_analysis.py(line: 98) : average psnr: 16.080460
+[INFO] [18896] 15:27:23-quantitative_analysis.py(line: 100) : --------------------- SSIM ---------------------
+[INFO] [18896] 15:27:23-quantitative_analysis.py(line: 106) : top 30%: 0.551386
+[INFO] [18896] 15:27:23-quantitative_analysis.py(line: 107) : top 30~60%: 0.404581
+[INFO] [18896] 15:27:23-quantitative_analysis.py(line: 108) : top 60~100%: 0.186442
+[INFO] [18896] 15:27:23-quantitative_analysis.py(line: 109) : average ssim: 0.361027
+odict_keys(['input1', 'input2'])
+[INFO] [18896] 15:27:24-quantitative_analysis.py(line: 42) : load model from C:/Users/USER/Desktop/UDIS-ShipLock/model/UDIS-ship/Warp/C3k2-Faster\epoch040_model.pth!
+Processing batches: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████| 300/300 [00:39<00:00,  7.65it/s]
+[INFO] [18896] 15:28:09-quantitative_analysis.py(line: 87) : totoal image nums: 300
+[INFO] [18896] 15:28:09-quantitative_analysis.py(line: 89) : --------------------- PSNR ---------------------
+[INFO] [18896] 15:28:09-quantitative_analysis.py(line: 95) : top 30%: 17.882233
+[INFO] [18896] 15:28:09-quantitative_analysis.py(line: 96) : top 30~60%: 16.500872
+[INFO] [18896] 15:28:09-quantitative_analysis.py(line: 97) : top 60~100%: 14.425283
+[INFO] [18896] 15:28:09-quantitative_analysis.py(line: 98) : average psnr: 16.080396
+[INFO] [18896] 15:28:09-quantitative_analysis.py(line: 100) : --------------------- SSIM ---------------------
+[INFO] [18896] 15:28:09-quantitative_analysis.py(line: 106) : top 30%: 0.551351
+[INFO] [18896] 15:28:09-quantitative_analysis.py(line: 107) : top 30~60%: 0.404648
+[INFO] [18896] 15:28:09-quantitative_analysis.py(line: 108) : top 60~100%: 0.186437
+[INFO] [18896] 15:28:09-quantitative_analysis.py(line: 109) : average ssim: 0.361034
+odict_keys(['input1', 'input2'])
+[INFO] [18896] 15:28:10-quantitative_analysis.py(line: 42) : load model from C:/Users/USER/Desktop/UDIS-ShipLock/model/UDIS-ship/Warp/C3k2-Faster\epoch050_model.pth!
+Processing batches: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████| 300/300 [00:39<00:00,  7.62it/s]
+[INFO] [18896] 15:28:54-quantitative_analysis.py(line: 87) : totoal image nums: 300
+[INFO] [18896] 15:28:54-quantitative_analysis.py(line: 89) : --------------------- PSNR ---------------------
+[INFO] [18896] 15:28:54-quantitative_analysis.py(line: 95) : top 30%: 17.881390
+[INFO] [18896] 15:28:54-quantitative_analysis.py(line: 96) : top 30~60%: 16.507631
+[INFO] [18896] 15:28:54-quantitative_analysis.py(line: 97) : top 60~100%: 14.426851
+[INFO] [18896] 15:28:54-quantitative_analysis.py(line: 98) : average psnr: 16.082792
+[INFO] [18896] 15:28:54-quantitative_analysis.py(line: 100) : --------------------- SSIM ---------------------
+[INFO] [18896] 15:28:54-quantitative_analysis.py(line: 106) : top 30%: 0.551474
+[INFO] [18896] 15:28:54-quantitative_analysis.py(line: 107) : top 30~60%: 0.405063
+[INFO] [18896] 15:28:54-quantitative_analysis.py(line: 108) : top 60~100%: 0.187199
+[INFO] [18896] 15:28:54-quantitative_analysis.py(line: 109) : average ssim: 0.361498
+odict_keys(['input1', 'input2'])
+[INFO] [18896] 15:28:55-quantitative_analysis.py(line: 42) : load model from C:/Users/USER/Desktop/UDIS-ShipLock/model/UDIS-ship/Warp/C3k2-Faster\epoch060_model.pth!
+Processing batches: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████| 300/300 [00:39<00:00,  7.61it/s]
+[INFO] [18896] 15:29:39-quantitative_analysis.py(line: 87) : totoal image nums: 300
+[INFO] [18896] 15:29:39-quantitative_analysis.py(line: 89) : --------------------- PSNR ---------------------
+[INFO] [18896] 15:29:39-quantitative_analysis.py(line: 95) : top 30%: 17.881698
+[INFO] [18896] 15:29:39-quantitative_analysis.py(line: 96) : top 30~60%: 16.559064
+[INFO] [18896] 15:29:39-quantitative_analysis.py(line: 97) : top 60~100%: 14.442414
+[INFO] [18896] 15:29:39-quantitative_analysis.py(line: 98) : average psnr: 16.104488
+[INFO] [18896] 15:29:39-quantitative_analysis.py(line: 100) : --------------------- SSIM ---------------------
+[INFO] [18896] 15:29:39-quantitative_analysis.py(line: 106) : top 30%: 0.552490
+[INFO] [18896] 15:29:39-quantitative_analysis.py(line: 107) : top 30~60%: 0.408602
+[INFO] [18896] 15:29:39-quantitative_analysis.py(line: 108) : top 60~100%: 0.189603
+[INFO] [18896] 15:29:39-quantitative_analysis.py(line: 109) : average ssim: 0.363819
+odict_keys(['input1', 'input2'])
+[INFO] [18896] 15:29:41-quantitative_analysis.py(line: 42) : load model from C:/Users/USER/Desktop/UDIS-ShipLock/model/UDIS-ship/Warp/C3k2-Faster\epoch070_model.pth!
+Processing batches: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████| 300/300 [00:39<00:00,  7.62it/s]
+[INFO] [18896] 15:30:25-quantitative_analysis.py(line: 87) : totoal image nums: 300
+[INFO] [18896] 15:30:25-quantitative_analysis.py(line: 89) : --------------------- PSNR ---------------------
+[INFO] [18896] 15:30:25-quantitative_analysis.py(line: 95) : top 30%: 17.882260
+[INFO] [18896] 15:30:25-quantitative_analysis.py(line: 96) : top 30~60%: 16.619775
+[INFO] [18896] 15:30:25-quantitative_analysis.py(line: 97) : top 60~100%: 14.449792
+[INFO] [18896] 15:30:25-quantitative_analysis.py(line: 98) : average psnr: 16.125796
+[INFO] [18896] 15:30:25-quantitative_analysis.py(line: 100) : --------------------- SSIM ---------------------
+[INFO] [18896] 15:30:25-quantitative_analysis.py(line: 106) : top 30%: 0.553400
+[INFO] [18896] 15:30:25-quantitative_analysis.py(line: 107) : top 30~60%: 0.411931
+[INFO] [18896] 15:30:25-quantitative_analysis.py(line: 108) : top 60~100%: 0.191965
+[INFO] [18896] 15:30:25-quantitative_analysis.py(line: 109) : average ssim: 0.366028
+odict_keys(['input1', 'input2'])
+[INFO] [18896] 15:30:26-quantitative_analysis.py(line: 42) : load model from C:/Users/USER/Desktop/UDIS-ShipLock/model/UDIS-ship/Warp/C3k2-Faster\epoch080_model.pth!
+Processing batches: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████| 300/300 [00:39<00:00,  7.65it/s]
+[INFO] [18896] 15:31:10-quantitative_analysis.py(line: 87) : totoal image nums: 300
+[INFO] [18896] 15:31:10-quantitative_analysis.py(line: 89) : --------------------- PSNR ---------------------
+[INFO] [18896] 15:31:10-quantitative_analysis.py(line: 95) : top 30%: 17.883302
+[INFO] [18896] 15:31:10-quantitative_analysis.py(line: 96) : top 30~60%: 16.647505
+[INFO] [18896] 15:31:10-quantitative_analysis.py(line: 97) : top 60~100%: 14.451690
+[INFO] [18896] 15:31:10-quantitative_analysis.py(line: 98) : average psnr: 16.135180
+[INFO] [18896] 15:31:10-quantitative_analysis.py(line: 100) : --------------------- SSIM ---------------------
+[INFO] [18896] 15:31:10-quantitative_analysis.py(line: 106) : top 30%: 0.554191
+[INFO] [18896] 15:31:10-quantitative_analysis.py(line: 107) : top 30~60%: 0.412801
+[INFO] [18896] 15:31:10-quantitative_analysis.py(line: 108) : top 60~100%: 0.192896
+[INFO] [18896] 15:31:10-quantitative_analysis.py(line: 109) : average ssim: 0.366895
+odict_keys(['input1', 'input2'])
+[INFO] [18896] 15:31:11-quantitative_analysis.py(line: 42) : load model from C:/Users/USER/Desktop/UDIS-ShipLock/model/UDIS-ship/Warp/C3k2-Faster\epoch090_model.pth!
+Processing batches: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████| 300/300 [00:39<00:00,  7.61it/s]
+[INFO] [18896] 15:31:56-quantitative_analysis.py(line: 87) : totoal image nums: 300
+[INFO] [18896] 15:31:56-quantitative_analysis.py(line: 89) : --------------------- PSNR ---------------------
+[INFO] [18896] 15:31:56-quantitative_analysis.py(line: 95) : top 30%: 17.884722
+[INFO] [18896] 15:31:56-quantitative_analysis.py(line: 96) : top 30~60%: 16.674376
+[INFO] [18896] 15:31:56-quantitative_analysis.py(line: 97) : top 60~100%: 14.450706
+[INFO] [18896] 15:31:56-quantitative_analysis.py(line: 98) : average psnr: 16.143273
+[INFO] [18896] 15:31:56-quantitative_analysis.py(line: 100) : --------------------- SSIM ---------------------
+[INFO] [18896] 15:31:56-quantitative_analysis.py(line: 106) : top 30%: 0.554532
+[INFO] [18896] 15:31:56-quantitative_analysis.py(line: 107) : top 30~60%: 0.414438
+[INFO] [18896] 15:31:56-quantitative_analysis.py(line: 108) : top 60~100%: 0.192772
+[INFO] [18896] 15:31:56-quantitative_analysis.py(line: 109) : average ssim: 0.367439
+odict_keys(['input1', 'input2'])
+[INFO] [18896] 15:31:57-quantitative_analysis.py(line: 42) : load model from C:/Users/USER/Desktop/UDIS-ShipLock/model/UDIS-ship/Warp/C3k2-Faster\epoch100_model.pth!
+Processing batches: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████| 300/300 [00:39<00:00,  7.64it/s]
+[INFO] [18896] 15:32:41-quantitative_analysis.py(line: 87) : totoal image nums: 300
+[INFO] [18896] 15:32:41-quantitative_analysis.py(line: 89) : --------------------- PSNR ---------------------
+[INFO] [18896] 15:32:41-quantitative_analysis.py(line: 95) : top 30%: 17.890117
+[INFO] [18896] 15:32:41-quantitative_analysis.py(line: 96) : top 30~60%: 16.719023
+[INFO] [18896] 15:32:41-quantitative_analysis.py(line: 97) : top 60~100%: 14.476343
+[INFO] [18896] 15:32:41-quantitative_analysis.py(line: 98) : average psnr: 16.168453
+[INFO] [18896] 15:32:41-quantitative_analysis.py(line: 100) : --------------------- SSIM ---------------------
+[INFO] [18896] 15:32:41-quantitative_analysis.py(line: 106) : top 30%: 0.554961
+[INFO] [18896] 15:32:41-quantitative_analysis.py(line: 107) : top 30~60%: 0.417222
+[INFO] [18896] 15:32:41-quantitative_analysis.py(line: 108) : top 60~100%: 0.197193
+[INFO] [18896] 15:32:41-quantitative_analysis.py(line: 109) : average ssim: 0.370157
+odict_keys(['input1', 'input2'])
+[INFO] [18896] 15:32:42-quantitative_analysis.py(line: 42) : load model from C:/Users/USER/Desktop/UDIS-ShipLock/model/UDIS-ship/Warp/C3k2-Faster\epoch110_model.pth!
+Processing batches: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████| 300/300 [00:39<00:00,  7.62it/s]
+[INFO] [18896] 15:33:27-quantitative_analysis.py(line: 87) : totoal image nums: 300
+[INFO] [18896] 15:33:27-quantitative_analysis.py(line: 89) : --------------------- PSNR ---------------------
+[INFO] [18896] 15:33:27-quantitative_analysis.py(line: 95) : top 30%: 17.892431
+[INFO] [18896] 15:33:27-quantitative_analysis.py(line: 96) : top 30~60%: 16.736183
+[INFO] [18896] 15:33:27-quantitative_analysis.py(line: 97) : top 60~100%: 14.481494
+[INFO] [18896] 15:33:27-quantitative_analysis.py(line: 98) : average psnr: 16.176323
+[INFO] [18896] 15:33:27-quantitative_analysis.py(line: 100) : --------------------- SSIM ---------------------
+[INFO] [18896] 15:33:27-quantitative_analysis.py(line: 106) : top 30%: 0.555049
+[INFO] [18896] 15:33:27-quantitative_analysis.py(line: 107) : top 30~60%: 0.418454
+[INFO] [18896] 15:33:27-quantitative_analysis.py(line: 108) : top 60~100%: 0.198729
+[INFO] [18896] 15:33:27-quantitative_analysis.py(line: 109) : average ssim: 0.371162
+odict_keys(['input1', 'input2'])
+[INFO] [18896] 15:33:28-quantitative_analysis.py(line: 42) : load model from C:/Users/USER/Desktop/UDIS-ShipLock/model/UDIS-ship/Warp/C3k2-Faster\epoch120_model.pth!
+Processing batches: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████| 300/300 [00:39<00:00,  7.61it/s]
+[INFO] [18896] 15:34:12-quantitative_analysis.py(line: 87) : totoal image nums: 300
+[INFO] [18896] 15:34:12-quantitative_analysis.py(line: 89) : --------------------- PSNR ---------------------
+[INFO] [18896] 15:34:12-quantitative_analysis.py(line: 95) : top 30%: 17.897122
+[INFO] [18896] 15:34:12-quantitative_analysis.py(line: 96) : top 30~60%: 16.753683
+[INFO] [18896] 15:34:12-quantitative_analysis.py(line: 97) : top 60~100%: 14.490712
+[INFO] [18896] 15:34:12-quantitative_analysis.py(line: 98) : average psnr: 16.186644
+[INFO] [18896] 15:34:12-quantitative_analysis.py(line: 100) : --------------------- SSIM ---------------------
+[INFO] [18896] 15:34:12-quantitative_analysis.py(line: 106) : top 30%: 0.555476
+[INFO] [18896] 15:34:12-quantitative_analysis.py(line: 107) : top 30~60%: 0.419766
+[INFO] [18896] 15:34:12-quantitative_analysis.py(line: 108) : top 60~100%: 0.201364
+[INFO] [18896] 15:34:12-quantitative_analysis.py(line: 109) : average ssim: 0.372729
+odict_keys(['input1', 'input2'])
+[INFO] [18896] 15:34:13-quantitative_analysis.py(line: 42) : load model from C:/Users/USER/Desktop/UDIS-ShipLock/model/UDIS-ship/Warp/C3k2-Faster\epoch130_model.pth!
+Processing batches: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████| 300/300 [00:39<00:00,  7.62it/s]
+[INFO] [18896] 15:34:57-quantitative_analysis.py(line: 87) : totoal image nums: 300
+[INFO] [18896] 15:34:57-quantitative_analysis.py(line: 89) : --------------------- PSNR ---------------------
+[INFO] [18896] 15:34:57-quantitative_analysis.py(line: 95) : top 30%: 17.898200
+[INFO] [18896] 15:34:57-quantitative_analysis.py(line: 96) : top 30~60%: 16.737041
+[INFO] [18896] 15:34:57-quantitative_analysis.py(line: 97) : top 60~100%: 14.492995
+[INFO] [18896] 15:34:57-quantitative_analysis.py(line: 98) : average psnr: 16.182888
+[INFO] [18896] 15:34:57-quantitative_analysis.py(line: 100) : --------------------- SSIM ---------------------
+[INFO] [18896] 15:34:57-quantitative_analysis.py(line: 106) : top 30%: 0.555589
+[INFO] [18896] 15:34:57-quantitative_analysis.py(line: 107) : top 30~60%: 0.418692
+[INFO] [18896] 15:34:57-quantitative_analysis.py(line: 108) : top 60~100%: 0.199766
+[INFO] [18896] 15:34:57-quantitative_analysis.py(line: 109) : average ssim: 0.371806
+odict_keys(['input1', 'input2'])
+[INFO] [18896] 15:34:59-quantitative_analysis.py(line: 42) : load model from C:/Users/USER/Desktop/UDIS-ShipLock/model/UDIS-ship/Warp/C3k2-Faster\epoch140_model.pth!
+Processing batches: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████| 300/300 [00:39<00:00,  7.59it/s]
+[INFO] [18896] 15:35:43-quantitative_analysis.py(line: 87) : totoal image nums: 300
+[INFO] [18896] 15:35:43-quantitative_analysis.py(line: 89) : --------------------- PSNR ---------------------
+[INFO] [18896] 15:35:43-quantitative_analysis.py(line: 95) : top 30%: 17.902016
+[INFO] [18896] 15:35:43-quantitative_analysis.py(line: 96) : top 30~60%: 16.770107
+[INFO] [18896] 15:35:43-quantitative_analysis.py(line: 97) : top 60~100%: 14.491859
+[INFO] [18896] 15:35:43-quantitative_analysis.py(line: 98) : average psnr: 16.193495
+[INFO] [18896] 15:35:43-quantitative_analysis.py(line: 100) : --------------------- SSIM ---------------------
+[INFO] [18896] 15:35:43-quantitative_analysis.py(line: 106) : top 30%: 0.555735
+[INFO] [18896] 15:35:43-quantitative_analysis.py(line: 107) : top 30~60%: 0.420679
+[INFO] [18896] 15:35:43-quantitative_analysis.py(line: 108) : top 60~100%: 0.201245
+[INFO] [18896] 15:35:43-quantitative_analysis.py(line: 109) : average ssim: 0.373033
+odict_keys(['input1', 'input2'])
+[INFO] [18896] 15:35:44-quantitative_analysis.py(line: 42) : load model from C:/Users/USER/Desktop/UDIS-ShipLock/model/UDIS-ship/Warp/C3k2-Faster\epoch150_model.pth!
+Processing batches: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████| 300/300 [00:39<00:00,  7.62it/s]
+[INFO] [18896] 15:36:28-quantitative_analysis.py(line: 87) : totoal image nums: 300
+[INFO] [18896] 15:36:28-quantitative_analysis.py(line: 89) : --------------------- PSNR ---------------------
+[INFO] [18896] 15:36:28-quantitative_analysis.py(line: 95) : top 30%: 17.902690
+[INFO] [18896] 15:36:28-quantitative_analysis.py(line: 96) : top 30~60%: 16.779554
+[INFO] [18896] 15:36:28-quantitative_analysis.py(line: 97) : top 60~100%: 14.496401
+[INFO] [18896] 15:36:28-quantitative_analysis.py(line: 98) : average psnr: 16.198339
+[INFO] [18896] 15:36:28-quantitative_analysis.py(line: 100) : --------------------- SSIM ---------------------
+[INFO] [18896] 15:36:28-quantitative_analysis.py(line: 106) : top 30%: 0.555845
+[INFO] [18896] 15:36:28-quantitative_analysis.py(line: 107) : top 30~60%: 0.422220
+[INFO] [18896] 15:36:28-quantitative_analysis.py(line: 108) : top 60~100%: 0.200797
+[INFO] [18896] 15:36:28-quantitative_analysis.py(line: 109) : average ssim: 0.373350
+odict_keys(['input1', 'input2'])
+[INFO] [18896] 15:36:30-quantitative_analysis.py(line: 42) : load model from C:/Users/USER/Desktop/UDIS-ShipLock/model/UDIS-ship/Warp/C3k2-Faster\epoch160_model.pth!
+Processing batches: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████| 300/300 [00:39<00:00,  7.63it/s]
+[INFO] [18896] 15:37:14-quantitative_analysis.py(line: 87) : totoal image nums: 300
+[INFO] [18896] 15:37:14-quantitative_analysis.py(line: 89) : --------------------- PSNR ---------------------
+[INFO] [18896] 15:37:14-quantitative_analysis.py(line: 95) : top 30%: 17.902706
+[INFO] [18896] 15:37:14-quantitative_analysis.py(line: 96) : top 30~60%: 16.772096
+[INFO] [18896] 15:37:14-quantitative_analysis.py(line: 97) : top 60~100%: 14.497442
+[INFO] [18896] 15:37:14-quantitative_analysis.py(line: 98) : average psnr: 16.196518
+[INFO] [18896] 15:37:14-quantitative_analysis.py(line: 100) : --------------------- SSIM ---------------------
+[INFO] [18896] 15:37:14-quantitative_analysis.py(line: 106) : top 30%: 0.555979
+[INFO] [18896] 15:37:14-quantitative_analysis.py(line: 107) : top 30~60%: 0.421270
+[INFO] [18896] 15:37:14-quantitative_analysis.py(line: 108) : top 60~100%: 0.200822
+[INFO] [18896] 15:37:14-quantitative_analysis.py(line: 109) : average ssim: 0.373116
+odict_keys(['input1', 'input2'])
+[INFO] [18896] 15:37:15-quantitative_analysis.py(line: 42) : load model from C:/Users/USER/Desktop/UDIS-ShipLock/model/UDIS-ship/Warp/C3k2-Faster\epoch170_model.pth!
+Processing batches: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████| 300/300 [00:39<00:00,  7.60it/s]
+[INFO] [18896] 15:38:00-quantitative_analysis.py(line: 87) : totoal image nums: 300
+[INFO] [18896] 15:38:00-quantitative_analysis.py(line: 89) : --------------------- PSNR ---------------------
+[INFO] [18896] 15:38:00-quantitative_analysis.py(line: 95) : top 30%: 17.905231
+[INFO] [18896] 15:38:00-quantitative_analysis.py(line: 96) : top 30~60%: 16.782028
+[INFO] [18896] 15:38:00-quantitative_analysis.py(line: 97) : top 60~100%: 14.497462
+[INFO] [18896] 15:38:00-quantitative_analysis.py(line: 98) : average psnr: 16.200257
+[INFO] [18896] 15:38:00-quantitative_analysis.py(line: 100) : --------------------- SSIM ---------------------
+[INFO] [18896] 15:38:00-quantitative_analysis.py(line: 106) : top 30%: 0.556196
+[INFO] [18896] 15:38:00-quantitative_analysis.py(line: 107) : top 30~60%: 0.421980
+[INFO] [18896] 15:38:00-quantitative_analysis.py(line: 108) : top 60~100%: 0.201135
+[INFO] [18896] 15:38:00-quantitative_analysis.py(line: 109) : average ssim: 0.373518
