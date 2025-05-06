@@ -8,8 +8,33 @@
 - [x] 确定新数据集训练时的图片大小，是和UDIS-D一样用512x512还是resize到保留原始纵横比?做2组实验对比
 - [x] 重新整理数据集，删掉视差太大的
 - [x] 整理仓库中文件夹结构
-- [ ] 整理UDIS2在UDIS-Ship数据集的指标
-- [ ] 训练UANet（DSELBlock/FPN/可变形卷积）
+- [x] 整理UDIS2在UDIS-Ship数据集的指标
+- [ ] Warp的对比实验（6~8个模型对比）
+  - [ ] 单位矩阵
+  - [ ] SIFT+RANSAC（传统）
+  - [ ] APAP（传统）
+  - [ ] ELA（传统）
+  - [ ] SPW（传统）
+  - [ ] LPC（传统）
+  - [ ] VFISNet（深度学习）
+  - [ ] EPISNet（深度学习）
+  - [ ] HomoGAN（深度学习）
+  - [ ] UDIS（深度学习）
+  - [x] UDIS++（深度学习）
+
+- [ ] Warp的消融实验
+  - [ ] C3k2
+  - [ ] +DESL
+  - [ ] +PANet
+  - [ ] +ECA
+
+- [ ] Fusion的对比实验
+  - [ ] 平均融合
+  - [ ] 羽化融合
+  - [ ] Seam Cut
+  - [ ] 基于重建的
+
+- [ ] Fusion的消融实验
 
 ## 开发中遇到的问题
 

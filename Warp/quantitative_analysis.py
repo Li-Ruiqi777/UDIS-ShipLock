@@ -8,6 +8,7 @@ import os
 import numpy as np
 import skimage
 from tqdm import tqdm
+from natsort import natsorted
 
 from UDIS2 import UDIS2
 from UANet import UANet
@@ -34,7 +35,7 @@ def quantitative_analysis(args):
         drop_last=False,
     )
 
-    model = UDIS2().to(device)
+    model = UANet().to(device)
     model.eval()
 
     # 加载权重
@@ -115,12 +116,14 @@ if __name__ == "__main__":
 
     parser.add_argument("--gpu", type=str, default="0")
     parser.add_argument("--batch_size", type=int, default=1)
-    parser.add_argument("--test_dataset_path", type=str, default="F:/dataset/UDIS-Ship/test",)
-    parser.add_argument('--ckpt_folder', type=str, default='C:/Users/USER/Desktop/UDIS-ShipLock/model/Warp/UDIS-Ship/UDIS2/fine_tuning2')
+    parser.add_argument("--test_dataset_path", type=str, default="/root/data/lrq/008-UDIS-Ship/test",)
+    parser.add_argument('--ckpt_folder', type=str, default='/root/data/lrq/UDIS-ShipLock/model/UDIS-ship/Warp/DESLBlock')
     parser.add_argument('--ckpt_path', type=str, default='')
     args = parser.parse_args()
     
-    for file in os.listdir(args.ckpt_folder):
+    sorted_files = natsorted(os.listdir(args.ckpt_folder))
+    sorted_files = sorted_files[-5:]
+    for file in sorted_files:
         if file.endswith('.pth'):
             args.ckpt_path = os.path.join(args.ckpt_folder, file)
             quantitative_analysis(args)
