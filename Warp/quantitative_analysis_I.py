@@ -8,12 +8,8 @@ import os
 import numpy as np
 import skimage
 from tqdm import tqdm
-from natsort import natsorted
 
-from UDIS2 import UDIS2
-from UANet import UANet
 from dataset import *
-from utils.get_output import get_batch_outputs_for_train
 from utils.logger_config import *
 from utils import constant
 
@@ -35,48 +31,29 @@ def quantitative_analysis(args):
         drop_last=False,
     )
 
-    model = UDIS2().to(device)
-    model.eval()
-
-    # 加载权重
-    check_point = torch.load(args.ckpt_path)
-    logger.info(f"load model from {args.ckpt_path}!")
-    model.load_state_dict(check_point["model"], strict=False)
-
-    # for key in model.state_dict().keys():
-    #     print(key)
-
     psnr_list = []
     ssim_list = []
     
     for i, batch_value in tqdm(enumerate(test_dataloader), total=len(test_dataloader), desc="Processing batches"):
 
-        inpu1_tesnor = batch_value[0].float().to(device)
-        inpu2_tesnor = batch_value[1].float().to(device)
-    
-        batch_outputs = get_batch_outputs_for_train(model, inpu1_tesnor, inpu2_tesnor, is_training=False)
-
-        tps_warped_mask = batch_outputs["tps_warped_mask"]
-        tps_warped_target = batch_outputs["tps_warped_target"]
-
-        tps_warped_target_np = ((tps_warped_target[0] + 1) * 127.5).cpu().numpy().transpose(1, 2, 0)
-        tps_warped_mask_np = tps_warped_mask[0].cpu().numpy().transpose(1, 2, 0)
-        
-        inpu1_np = ((inpu1_tesnor[0] + 1) * 127.5).cpu().numpy().transpose(1, 2, 0)
+        inpu1_tesnor = batch_value[0].float()
+        inpu2_tesnor = batch_value[1].float()
+       
+        inpu1_np = ((inpu1_tesnor[0] + 1) * 127.5).numpy().transpose(1, 2, 0)
+        inpu2_np = ((inpu2_tesnor[0] + 1) * 127.5).numpy().transpose(1, 2, 0)
         
         # 计算PSNR/SSIM
         psnr = skimage.metrics.peak_signal_noise_ratio(
-            inpu1_np * tps_warped_mask_np,
-            tps_warped_target_np * tps_warped_mask_np,
+            inpu1_np,
+            inpu2_np,
             data_range=255,
         )
 
         ssim = skimage.metrics.structural_similarity(
-            inpu1_np * tps_warped_mask_np,
-            tps_warped_target_np * tps_warped_mask_np,
+            inpu1_np,
+            inpu2_np,
+            channel_axis=2,
             data_range=255,
-            multichannel=True,
-            win_size=3
         )
 
         # logger.info(f"i = {i+1}, psnr = {psnr:.6f}")
@@ -118,17 +95,9 @@ if __name__ == "__main__":
 
     parser.add_argument("--gpu", type=str, default="0")
     parser.add_argument("--batch_size", type=int, default=1)
-    parser.add_argument("--test_dataset_path", type=str, default="E:/DeepLearning/0_DataSets/007-UDIS-D-subset/test")
-    parser.add_argument('--ckpt_folder', type=str, default='F:/MasterGraduate/03-Code/UDIS-ShipLock/model/UDIS-D/Warp/C3k2-EIEM-Faster-FPN/')
-    parser.add_argument('--ckpt_path', type=str, default='E:/DeepLearning/7_Stitch/UDIS2/Warp/model/epoch100_model.pth')
+    parser.add_argument("--test_dataset_path", type=str, default="E:/DeepLearning/0_DataSets/008-UDIS-Ship/test")
+    parser.add_argument('--ckpt_folder', type=str, default='')
+    parser.add_argument('--ckpt_path', type=str, default='')
     args = parser.parse_args()
     
-    if(args.ckpt_path == ''):
-        sorted_files = natsorted(os.listdir(args.ckpt_folder))
-        sorted_files = sorted_files[-5:]
-        for file in sorted_files:
-            if file.endswith('.pth'):
-                args.ckpt_path = os.path.join(args.ckpt_folder, file)
-                quantitative_analysis(args)
-    else:
-        quantitative_analysis(args)
+    quantitative_analysis(args)

@@ -504,7 +504,7 @@ class AttentionCorrelationVolume(CCL):
         return agg_vol
 
 ######################################## C3k2-Faster begin ########################################
-from timm.models.layers import DropPath
+from timm.layers import DropPath
 
 class Partial_conv3(nn.Module):
     def __init__(self, dim, n_div=4, forward='split_cat'):

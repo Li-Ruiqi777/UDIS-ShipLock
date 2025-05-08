@@ -23,9 +23,9 @@
   - [x] UDIS++（深度学习）
 
 - [ ] Warp的消融实验
-  - [ ] C3k2
-  - [ ] +DESL
-  - [ ] +PANet
+  - [ ] **C3k2**
+  - [x] +DESL
+  - [x] +PANet
   - [ ] +ECA
 
 - [ ] Fusion的对比实验
