@@ -65,11 +65,12 @@ class TrainDataset(Dataset):
 
 
 class TestDataset(Dataset):
-    def __init__(self, data_path, width=512, height=512):
+    def __init__(self, data_path, resize=True, width=512, height=512):
 
         self.width = width
         self.height = height
         self.test_path = data_path
+        self.resize = resize
         self.datas = OrderedDict()
 
         datas = glob.glob(os.path.join(self.test_path, "*"))
@@ -90,14 +91,16 @@ class TestDataset(Dataset):
 
         # load image1
         input1 = cv2.imread(self.datas["input1"]["image"][index])
-        input1 = cv2.resize(input1, (self.width, self.height))
+        if self.resize:
+            input1 = cv2.resize(input1, (self.width, self.height))
         input1 = input1.astype(dtype=np.float32)
         input1 = (input1 / 127.5) - 1.0
         input1 = np.transpose(input1, [2, 0, 1])
 
         # load image2
         input2 = cv2.imread(self.datas["input2"]["image"][index])
-        input2 = cv2.resize(input2, (self.width, self.height))
+        if self.resize:
+            input2 = cv2.resize(input2, (self.width, self.height))
         input2 = input2.astype(dtype=np.float32)
         input2 = (input2 / 127.5) - 1.0
         input2 = np.transpose(input2, [2, 0, 1])

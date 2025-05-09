@@ -14,7 +14,7 @@ device = utils.constant.device
 class UANet(nn.Module):
     def __init__(self):
         super(UANet, self).__init__()
-        self.feature_extractor = FeatureExtractor_C3k2_EIEM_Faster()
+        self.feature_extractor = FeatureExtractor_C3k2_EIEM_Faster_FPN()
         self.homo_regress_net = HomoRegressNet_SPP()
         self.mesh_regress_net = MeshRegressNet_SPP([gird_h, gird_w])
         self.CCL1 = CCL()
