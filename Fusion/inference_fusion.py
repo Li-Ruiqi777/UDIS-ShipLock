@@ -4,6 +4,7 @@
 import torch
 from torch.utils.data import DataLoader
 import argparse
+from natsort import natsorted
 
 from UDIS2 import build_model, Fusion
 from dataset import *
@@ -90,8 +91,17 @@ if __name__ == "__main__":
     parser.add_argument("--batch_size", type=int, default=1)
     parser.add_argument("--num_workers", type=int, default=4)
     parser.add_argument("--test_dataset_path",type=str, default="F:/imgs-purge/same_camera/test")
-    parser.add_argument('--ckpt_path', type=str, default='F:/MasterGraduate/03-Code/UDIS-ShipLock/model/Fusion/UDIS2/epoch050_model.pth')
-    parser.add_argument('--save_path', type=str, default='F:/MasterGraduate/03-Code/UDIS-ShipLock/results/Fusion')
+    parser.add_argument('--ckpt_folder', type=str, default='F:/MasterGraduate/03-Code/UDIS-ShipLock/model/Fusion/UDIS2/')
+    parser.add_argument('--ckpt_path', type=str, default='')
+    parser.add_argument('--save_path', type=str, default='F:/MasterGraduate/03-Code/UDIS-ShipLock/results/Fusion/UDIS2')
     args = parser.parse_args()
     
-    test_fusion(args)
+    if(args.ckpt_path == ''):
+        sorted_files = natsorted(os.listdir(args.ckpt_folder))
+        # sorted_files = sorted_files[-5:]
+        for file in sorted_files:
+            if file.endswith('.pth'):
+                args.ckpt_path = os.path.join(args.ckpt_folder, file)
+                test_fusion(args)
+    else:
+        test_fusion(args)
