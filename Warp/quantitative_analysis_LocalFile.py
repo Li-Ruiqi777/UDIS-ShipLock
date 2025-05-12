@@ -19,8 +19,7 @@ logger = logging.getLogger(__name__)
 
 @torch.no_grad()
 def quantitative_analysis(args):
-
-    test_dataset = TestDataset(data_path=args.test_dataset_path, width=512, height=512)
+    test_dataset = TestDataset(data_path=args.test_dataset_path, resize=False, width=512, height=512)
     test_dataloader = DataLoader(
         dataset=test_dataset,
         batch_size=args.batch_size,
@@ -93,8 +92,8 @@ if __name__ == "__main__":
 
     parser.add_argument("--gpu", type=str, default="0")
     parser.add_argument("--batch_size", type=int, default=1)
-    parser.add_argument("--test_dataset_path", type=str, default="E:/DeepLearning/0_DataSets/007-UDIS-D/testing/ELA_output")
-    # parser.add_argument("--test_dataset_path", type=str, default="E:/DeepLearning/0_DataSets/008-UDIS-Ship/test")
+    # parser.add_argument("--test_dataset_path", type=str, default="E:/DeepLearning/0_DataSets/007-UDIS-D/testing/ELA_output")
+    parser.add_argument("--test_dataset_path", type=str, default="E:/DeepLearning/0_DataSets/008-UDIS-Ship/test/TFA_output")
     parser.add_argument('--ckpt_folder', type=str, default='')
     parser.add_argument('--ckpt_path', type=str, default='')
     args = parser.parse_args()

@@ -43,18 +43,18 @@ def quantitative_analysis(args):
         inpu1_np = ((inpu1_tesnor[0] + 1) * 127.5).numpy().transpose(1, 2, 0)
         inpu2_np = ((inpu2_tesnor[0] + 1) * 127.5).numpy().transpose(1, 2, 0)
 
-        warped_target_img, warped_mask = compute_homography_SIFT(inpu1_np, inpu2_np)
+        translated_ref_img, warped_target_img, overlap_mask = compute_homography_SIFT(inpu1_np, inpu2_np)
 
         # 计算PSNR/SSIM
         psnr = skimage.metrics.peak_signal_noise_ratio(
-            inpu1_np * warped_mask,
-            warped_target_img * warped_mask,
+            translated_ref_img * overlap_mask,
+            warped_target_img * overlap_mask,
             data_range=255,
         )
 
         ssim = skimage.metrics.structural_similarity(
-            inpu1_np * warped_mask,
-            warped_target_img * warped_mask,
+            translated_ref_img * overlap_mask,
+            warped_target_img * overlap_mask,
             channel_axis=2,
             data_range=255,
         )
