@@ -1,0 +1,48 @@
+['epoch-10', 'epoch-20', 'epoch-30', 'epoch-40', 'epoch-50', 'old']
+./results/Fusion/UDIS2_finetuning_best\epoch-10
+totoal image nums: 300
+--------------------- Seam Quality ---------------------
+top 30%: 300.730152
+top 30~60%: 753.792008
+top 60~100%: 1832.372823
+average seam quality: 1053.966402
+./results/Fusion/UDIS2_finetuning_best\epoch-20
+
+totoal image nums: 300
+--------------------- Seam Quality ---------------------
+top 30%: 322.874796
+top 30~60%: 887.630731
+top 60~100%: 1887.768984
+average seam quality: 1122.673363
+./results/Fusion/UDIS2_finetuning_best\epoch-30
+
+totoal image nums: 300
+--------------------- Seam Quality ---------------------
+top 30%: 262.162345
+top 30~60%: 667.285715
+top 60~100%: 1787.161794
+average seam quality: 998.408000
+./results/Fusion/UDIS2_finetuning_best\epoch-40
+
+totoal image nums: 300
+--------------------- Seam Quality ---------------------
+top 30%: 277.199057
+top 30~60%: 729.199350
+top 60~100%: 1844.081020
+average seam quality: 1044.156734
+./results/Fusion/UDIS2_finetuning_best\epoch-50
+
+totoal image nums: 300
+--------------------- Seam Quality ---------------------
+top 30%: 291.046376
+top 30~60%: 788.506571
+top 60~100%: 1833.578401
+average seam quality: 1061.921124
+./results/Fusion/UDIS2_finetuning_best\old
+
+totoal image nums: 300
+--------------------- Seam Quality ---------------------
+top 30%: 287.257269
+top 30~60%: 660.342468
+top 60~100%: 1447.496064
+average seam quality: 869.418273

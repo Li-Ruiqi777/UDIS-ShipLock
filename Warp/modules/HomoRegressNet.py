@@ -33,6 +33,7 @@ class HomoRegressNet(nn.Module):
         )
         
         self.stage2 = nn.Sequential(
+            # nn.Linear(in_features=256, out_features=4096, bias=True),
             nn.Linear(in_features=4096, out_features=4096, bias=True),
             nn.ReLU(inplace=True),
 

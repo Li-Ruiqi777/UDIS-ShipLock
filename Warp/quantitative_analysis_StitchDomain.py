@@ -35,7 +35,7 @@ def quantitative_analysis(args):
         drop_last=False,
     )
 
-    model = UANet().to(device)
+    model = UDIS2().to(device)
     model.eval()
 
     # 加载权重
@@ -77,8 +77,7 @@ def quantitative_analysis(args):
             translated_reference_np * tps_warped_mask_np,
             tps_warped_target_np * translated_mask_np,
             data_range=255,
-            multichannel=True,
-            win_size=3
+            channel_axis=2
         )
 
         # cv2.imshow("1", (translated_reference_np * tps_warped_mask_np).astype(np.uint8))
@@ -103,7 +102,7 @@ def quantitative_analysis(args):
     psnr_list.sort(reverse=True)
     psnr_list_30 = psnr_list[0:imgs_0_30]
     psnr_list_60 = psnr_list[imgs_0_30:imgs_30_60]
-    psnr_list_100 = psnr_list[imgs_30_60:-1]
+    psnr_list_100 = psnr_list[imgs_30_60:]
     
     logger.info(f"top 30%: {np.mean(psnr_list_30):.6f}")
     logger.info(f"top 30~60%: {np.mean(psnr_list_60):.6f}")
@@ -114,7 +113,7 @@ def quantitative_analysis(args):
     ssim_list.sort(reverse=True)
     ssim_list_30 = ssim_list[0:imgs_0_30]
     ssim_list_60 = ssim_list[imgs_0_30:imgs_30_60]
-    ssim_list_100 = ssim_list[imgs_30_60:-1]
+    ssim_list_100 = ssim_list[imgs_30_60:]
 
     logger.info(f"top 30%: {np.mean(ssim_list_30):.6f}")
     logger.info(f"top 30~60%: {np.mean(ssim_list_60):.6f}")
@@ -130,7 +129,7 @@ if __name__ == "__main__":
     parser.add_argument("--batch_size", type=int, default=1)
     parser.add_argument("--test_dataset_path", type=str, default="E:/DeepLearning/0_DataSets/008-UDIS-Ship/test")
     parser.add_argument('--ckpt_folder', type=str, default='')
-    parser.add_argument('--ckpt_path', type=str, default='F:/MasterGraduate/03-Code/UDIS-ShipLock/model/UDIS-D/Warp/C3k2-EIEM-Faster-FPN/epoch110_model.pth')
+    parser.add_argument('--ckpt_path', type=str, default='E:/DeepLearning/7_Stitch/UDIS2/Warp/model/epoch100_model.pth')
     args = parser.parse_args()
     
     if(args.ckpt_path == ''):

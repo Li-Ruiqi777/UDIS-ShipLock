@@ -92,8 +92,8 @@ if __name__ == "__main__":
 
     parser.add_argument("--gpu", type=str, default="0")
     parser.add_argument("--batch_size", type=int, default=1)
-    # parser.add_argument("--test_dataset_path", type=str, default="E:/DeepLearning/0_DataSets/007-UDIS-D/testing/ELA_output")
-    parser.add_argument("--test_dataset_path", type=str, default="E:/DeepLearning/0_DataSets/008-UDIS-Ship/test/TFA_output")
+    # parser.add_argument("--test_dataset_path", type=str, default="E:/DeepLearning/0_DataSets/008-UDIS-Ship/test/ELA_output")
+    parser.add_argument("--test_dataset_path", type=str, default="E:/DeepLearning/0_DataSets/008-UDIS-Ship/test/SPW_output")
     parser.add_argument('--ckpt_folder', type=str, default='')
     parser.add_argument('--ckpt_path', type=str, default='')
     args = parser.parse_args()

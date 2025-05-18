@@ -38,6 +38,7 @@ class UDIS2(nn.Module):
             nn.MaxPool2d(2, 2)
         )
         self.regressNet1_part2 = nn.Sequential(
+            # nn.Linear(in_features=256, out_features=4096, bias=True),
             nn.Linear(in_features=4096, out_features=4096, bias=True),
             nn.ReLU(inplace=True),
 
@@ -75,6 +76,7 @@ class UDIS2(nn.Module):
         )
 
         self.regressNet2_part2 = nn.Sequential(
+            # nn.Linear(in_features=512, out_features=4096, bias=True),
             nn.Linear(in_features=8192, out_features=4096, bias=True),
             nn.ReLU(inplace=True),
 

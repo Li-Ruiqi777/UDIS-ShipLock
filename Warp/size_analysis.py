@@ -22,4 +22,4 @@ if __name__ == '__main__':
 
     macs, params = profile(model, inputs=[inpu1_tesnor, inpu2_tesnor])
     logger.info("Number of Params: %.2f M" % (params / 1e6))
-    logger.info("Number of FLOPs: %.2f G" % (macs / 1e9))
+    logger.info("Number of FLOPs: %.2f G" % (macs*2 / 1e9))

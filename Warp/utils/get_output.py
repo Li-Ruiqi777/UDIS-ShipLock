@@ -234,18 +234,19 @@ def get_batch_outputs_for_stitch(net, ref_tensor, target_tensor):
 
     return batch_outputs
 
-def get_batch_outputs_for_ft(net, input1_tensor, input2_tensor):
+def get_batch_outputs_for_ft(net, ref_tensor, target_tensor):
     """
     计算在线Fine tuning中的初步配准结果
-    与`get_batch_outputs_for_stitch`的区别:此函数没有改变将warp后的图片的(h,w).导致warp后一部分图像的缺失
+    与`get_batch_outputs_for_stitch`的区别:此函数没有改变将warp后的图片的(h,w).导致warp后一部分图像的缺失.
+    并且也没进行normalize, denormalize等操作, 所以输入图像必须为512*512的.
 
     1.用网络预测H的4pt和TPS的控制点的偏移
     2.计算mesh(的控制点)在网络预测的H和TPS motion后的坐标
     3.带入(2)的数据对target进行TPS变换
     """
-    batch_size, _, img_h, img_w = input1_tensor.size()
+    batch_size, _, img_h, img_w = ref_tensor.size()
 
-    H_motion, mesh_motion = net(input1_tensor, input2_tensor)
+    H_motion, mesh_motion = net(ref_tensor, target_tensor)
 
     H_motion = H_motion.reshape(-1, 4, 2)
     # H_motion = torch.stack([H_motion[...,0]*img_w/512, H_motion[...,1]*img_h/512], 2)
@@ -271,38 +272,39 @@ def get_batch_outputs_for_ft(net, input1_tensor, input2_tensor):
     norm_rigid_mesh = get_norm_mesh(rigid_mesh, img_h, img_w)
     norm_mesh = get_norm_mesh(mesh, img_h, img_w)
 
-    mask = torch.ones_like(input2_tensor).to(device)
+    mask = torch.ones_like(target_tensor).to(device)
 
-    output_tps = torch_tps_transform.transformer(
-        torch.cat((input2_tensor, mask), 1), norm_mesh, norm_rigid_mesh, (img_h, img_w)
+    tps_warped_target_and_mask = torch_tps_transform.transformer(
+        torch.cat((target_tensor, mask), 1), 
+        norm_mesh,
+        norm_rigid_mesh, 
+        (img_h, img_w)
     )
-    warp_mesh = output_tps[:, 0:3, ...]
-    warp_mesh_mask = output_tps[:, 3:6, ...]
+    tps_warped_target = tps_warped_target_and_mask[:, 0:3, ...]
+    tps_warped_mask = tps_warped_target_and_mask[:, 3:6, ...]
 
-    out_dict = {}
-    out_dict.update(
-        warp_mesh=warp_mesh,           #对target图像进行TPS变换后的结果
-        warp_mesh_mask=warp_mesh_mask, #对mask进行TPS变换后的结果
+    batch_outputs = {}
+    batch_outputs.update(
+        tps_warped_target=tps_warped_target,
+        tps_warped_mask=tps_warped_mask,
         rigid_mesh=rigid_mesh,
         mesh=mesh,
     )
 
-    return out_dict
+    return batch_outputs
 
-# 用于在线迭代算法中的后续Fine tuning
-def get_stitched_result(input1_tensor, input2_tensor, rigid_mesh, mesh):
+# 使用Fine tuning获得的优化后的mesh进行stitch操作
+def get_stitched_result(ref_tensor, tar_tensor, rigid_mesh, mesh):
     """
     1.根据变换后控制点的坐标最值,确定stitched img的h,w大小
     2.对reference进行单应性变换(平移),将其变到stitched img的坐标系下
     3.对target进行TPS变换,将其变到stitched img的坐标系下
     4.对2张配准后的图片进行average fusion
     """
-    batch_size, _, img_h, img_w = input1_tensor.size()
+    batch_size, _, img_h, img_w = ref_tensor.size()
 
     # 根据实际的img size通过缩放调整控制点的坐标
-    rigid_mesh = torch.stack(
-        [rigid_mesh[..., 0] * img_w / 512, rigid_mesh[..., 1] * img_h / 512], 3
-    )
+    rigid_mesh = torch.stack([rigid_mesh[..., 0] * img_w / 512, rigid_mesh[..., 1] * img_h / 512], 3)
     mesh = torch.stack([mesh[..., 0] * img_w / 512, mesh[..., 1] * img_h / 512], 3)
 
     # 根据控制点的坐标最值,确定stitched img的h,w大小
@@ -321,23 +323,21 @@ def get_stitched_result(input1_tensor, input2_tensor, rigid_mesh, mesh):
     print(out_height)
 
     # 将reference变到stitched image的坐标系下(可以看成平移操作)
-    warp1 = torch.zeros([batch_size, 3, out_height.int(), out_width.int()]).cuda()
-    warp1[
+    translated_ref_img = torch.zeros([batch_size, 3, out_height.int(), out_width.int()]).cuda()
+    translated_ref_img[
         :,
         :,
         int(torch.abs(height_min)) : int(torch.abs(height_min)) + img_h, #warp1的在新坐标系下的范围[abs(height_min), abs(height_min) + img_h]
         int(torch.abs(width_min)) : int(torch.abs(width_min)) + img_w,
-    ] = (input1_tensor + 1) * 127.5
+    ] = (ref_tensor + 1) * 127.5
 
-    mask1 = torch.zeros([batch_size, 3, out_height.int(), out_width.int()]).cuda()
-    mask1[
+    translated_ref_mask = torch.zeros([batch_size, 3, out_height.int(), out_width.int()]).cuda()
+    translated_ref_mask[
         :,
         :,
         int(torch.abs(height_min)) : int(torch.abs(height_min)) + img_h,
         int(torch.abs(width_min)) : int(torch.abs(width_min)) + img_w,
     ] = 255
-
-    mask = torch.ones_like(input2_tensor).to(device)
 
     # get warped img2
     mesh_trans = torch.stack([mesh[..., 0] - width_min, mesh[..., 1] - height_min], 3)
@@ -345,33 +345,30 @@ def get_stitched_result(input1_tensor, input2_tensor, rigid_mesh, mesh):
     norm_mesh = get_norm_mesh(mesh_trans, out_height, out_width)
 
     # 用TPS变换将target变到stitched image的坐标系下
+    mask = torch.ones_like(tar_tensor).to(device)
     stitch_tps_out = torch_tps_transform.transformer(
-        torch.cat([input2_tensor + 1, mask], 1),
+        torch.cat([tar_tensor + 1, mask], 1),
         norm_mesh,
         norm_rigid_mesh,
         (out_height.int(), out_width.int()),
     )
-    warp2 = stitch_tps_out[:, 0:3, :, :] * 127.5
-    mask2 = stitch_tps_out[:, 3:6, :, :] * 255
+    warped_tar_img = stitch_tps_out[:, 0:3, :, :] * 127.5
+    warped_tar_mask = stitch_tps_out[:, 3:6, :, :] * 255
 
     # average fustion
-    stitched = warp1 * (warp1 / (warp1 + warp2 + 1e-6)) + warp2 * (
-        warp2 / (warp1 + warp2 + 1e-6)
-    )
+    stitched = translated_ref_img * (translated_ref_img / (translated_ref_img + warped_tar_img + 1e-6)) \
+               + warped_tar_img * (warped_tar_img / (translated_ref_img + warped_tar_img + 1e-6))
 
-    stitched_mesh = draw_mesh_on_warp(
-        stitched[0].cpu().detach().numpy().transpose(1, 2, 0),
-        mesh_trans[0].cpu().detach().numpy(),
-    )
+    stitched_mesh = draw_mesh_on_warp(stitched[0].cpu().detach().numpy().transpose(1, 2, 0), mesh_trans[0].cpu().detach().numpy(),)
 
-    out_dict = {}
-    out_dict.update(
-        warp1=warp1,
-        mask1=mask1,
-        warp2=warp2,
-        mask2=mask2,
+    batch_outputs = {}
+    batch_outputs.update(
+        warp1=translated_ref_img,
+        mask1=translated_ref_mask,
+        warp2=warped_tar_img,
+        mask2=warped_tar_mask,
         stitched=stitched,
         stitched_mesh=stitched_mesh,
     )
 
-    return out_dict
+    return batch_outputs

@@ -22,7 +22,7 @@ def test_stitch(args):
     os.environ["CUDA_DEVICES_ORDER"] = "PCI_BUS_ID"
     os.environ["CUDA_VISIBLE_DEVICES"] = args.gpu
 
-    test_dataset = TestDataset(data_path=args.test_dataset_path, width=1024, height=456)
+    test_dataset = TestDataset(data_path=args.test_dataset_path, resize=False, width=1024, height=456)
     test_dataloader = DataLoader(
         dataset=test_dataset,
         batch_size=args.batch_size,
@@ -31,7 +31,7 @@ def test_stitch(args):
         pin_memory=True,
     )
 
-    model = UDIS2().to(device)
+    model = UANet().to(device)
     model.eval()
 
     # 加载权重
@@ -63,13 +63,16 @@ def save_stitch_result(batch_outputs, image_saver, idx):
     tps_warped_mask = de_normalize1(tps_warped_mask)
 
     # 融合结果
-    weight_ref = translated_reference / (translated_reference + tps_warped_target + 1e-10)
-    weight_warp = 1.0 - weight_ref
-    np.clip(weight_ref, 0, 1, weight_ref)
-    np.clip(weight_warp, 0, 1, weight_warp)
-    ave_fusion = weight_ref * translated_reference + weight_warp * tps_warped_target
-    ave_fusion = np.clip(ave_fusion, 0, 255).astype(np.uint8)
-    
+    # weight_ref = translated_reference / (translated_reference + tps_warped_target + 1e-6)
+    # weight_warp = tps_warped_target / (translated_reference + tps_warped_target + 1e-6)
+    # np.clip(weight_ref, 0, 1, weight_ref)
+    # np.clip(weight_warp, 0, 1, weight_warp)
+    # ave_fusion = weight_ref * translated_reference + weight_warp * tps_warped_target
+    # ave_fusion = np.clip(ave_fusion, 0, 255).astype(np.uint8)
+
+    ave_fusion = translated_reference * (translated_reference / (translated_reference + tps_warped_target + 1e-6))\
+                 + tps_warped_target * (tps_warped_target / (translated_reference + tps_warped_target + 1e-6))
+
     # 结果放在一个文件夹(便于查看结果)
     # image_saver.add_image(f'{str(idx + 1).zfill(6)}_warped', tps_warped_target[0])
     # image_saver.add_image(f'{str(idx + 1).zfill(6)}_translated', translated_reference[0])
@@ -90,7 +93,7 @@ def de_normalize(img):
     还原归一化
     '''
     img = (img + 1.0) * 127.5
-    img = img.astype(np.uint8)
+    # img = img.astype(np.uint8)
     return img
 
 def de_normalize1(img):
@@ -108,9 +111,9 @@ if __name__ == "__main__":
     parser.add_argument("--gpu", type=str, default="0")
     parser.add_argument("--batch_size", type=int, default=1) # 必须调成1
     parser.add_argument("--num_workers", type=int, default=4)
-    parser.add_argument('--ckpt_path', type=str, default='F:/MasterGraduate/03-Code/UDIS-ShipLock/model/Warp/UDIS-Ship/epoch120_model.pth')
+    parser.add_argument('--ckpt_path', type=str, default='model/UDIS-ship/Warp/DSEL-FPN/epoch170_model.pth')
     parser.add_argument('--save_path', type=str, default='F:/MasterGraduate/03-Code/UDIS-ShipLock/results/Warp/stitch')
-    parser.add_argument("--test_dataset_path",type=str, default="F:/imgs-purge/same_camera/test")
+    parser.add_argument("--test_dataset_path",type=str, default="F:/imgs-purge/same_camera/resize512/")
     args = parser.parse_args()
 
     test_stitch(args)

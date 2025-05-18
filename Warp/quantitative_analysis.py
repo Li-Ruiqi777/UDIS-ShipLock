@@ -75,8 +75,7 @@ def quantitative_analysis(args):
             inpu1_np * tps_warped_mask_np,
             tps_warped_target_np * tps_warped_mask_np,
             data_range=255,
-            multichannel=True,
-            win_size=3
+            channel_axis=2,
         )
 
         # logger.info(f"i = {i+1}, psnr = {psnr:.6f}")

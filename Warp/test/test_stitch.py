@@ -1,3 +1,6 @@
+"""
+测试在输出域warp
+"""
 import cv2
 import numpy as np
 import torch
@@ -10,7 +13,7 @@ from utils.get_output import get_batch_outputs_for_stitch
 from utils.ImageSaver import ImageSaver
 
 ckpt_path = "E:/DeepLearning/7_Stitch/UDIS2/Warp/model/epoch100_model.pth"
-save_path = 'E:/DeepLearning/7_Stitch/UDIS2/Warp/results/test_stitch'
+save_path = './results/Warp/test_stitch'
 
 @torch.no_grad()
 def test_get_batch_outputs_for_stitch():
@@ -23,8 +26,8 @@ def test_get_batch_outputs_for_stitch():
     model.eval()
 
     # 加载输入
-    ref_img = cv2.imread("E:/DeepLearning/0_DataSets/007-UDIS-D/testing/testing/input1/000001.jpg")
-    target_img = cv2.imread("E:/DeepLearning/0_DataSets/007-UDIS-D/testing/testing/input2/000001.jpg")
+    ref_img = cv2.imread("./input1_512/2.jpg")
+    target_img = cv2.imread("./input2_512/2.jpg")
     # 归一化
     ref_img = ref_img.astype(np.float32) / 127.5 - 1.0
     target_img = target_img.astype(np.float32) / 127.5 - 1.0
