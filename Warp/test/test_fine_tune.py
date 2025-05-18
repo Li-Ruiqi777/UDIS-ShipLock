@@ -1,4 +1,8 @@
+"""
+对单个image pair进行fine-tuning测试, 迭代优化重叠区域的mesh, 消除重影
+"""
 import argparse
+import random
 import numpy as np
 import cv2
 import os
@@ -39,7 +43,7 @@ def load_image_pair(img_path, img_name, device='cuda'):
     
     return input1_tensor, input2_tensor
 
-def train(args):
+def fine_tune(args):
     model = UANet().to(device)
     model.train()
 
@@ -105,8 +109,16 @@ def train(args):
 
         scheduler.step()
 
-if __name__=="__main__":
+def setup_seed(seed):
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+    np.random.seed(seed)
+    random.seed(seed)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
 
+if __name__=="__main__":
+    setup_seed(200147)
     parser = argparse.ArgumentParser()
 
     parser.add_argument('--gpu', type=str, default='0')
@@ -119,4 +131,4 @@ if __name__=="__main__":
 
     args = parser.parse_args()
 
-    train(args)
+    fine_tune(args)
